@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>OAuth Home</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #3e3e3e;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<body>
+<h1>Welcome to Oauth Client</h1>
+</br>
+<div><label>Client id: </label>
+    <tbody>
+    <td th:text="${clientId}" id="clientId"/>
+    </tbody>
+</div>
+<div><label>Access Token Value: </label>
+    <tbody>
+    <td th:text="${accessTokenValue}" id="accessTokenValue"/>
+    </tbody>
+</div>
+<div><label>Refresh Token Value: </label>
+    <tbody>
+    <td th:text="${refreshTokenValue}" id="refreshTokenValue"/>
+    </tbody>
+</div>
+<div><form th:action="@{/api/{path}(path=${api})}" method="GET">
+    <input type="hidden" th:value="${clientId}" name="clientId">
+    <input type="hidden" th:value="${scope}" name="scope">
+    <input type="hidden" th:value="${redirectUri}" name="redirectUri">
+    <input type="hidden" th:value="${responseType}" name="responseType">
+    <input type="hidden" th:value="${state}" name="state">
+    <label>Scope:</label>
+    <input name="scope" id="scope" th:value="get">
+    </br>
+    <button>Approve</button>
+</form>
+</div>
+    <div><form th:action="${resourcePath}" method="GET">
+        <input type="hidden" th:value="${accessTokenValue}" name="access_token">
+        <button>Fetch resource</button>
+    </form>
+    </div>
+<div><form th:action="@{/api/{path}(path=${refreshApi})}" method="GET">
+    <input type="hidden" th:value="${refreshTokenValue}" name="refreshToken">
+    <button>Refresh Token</button>
+</form>
+</div>
+</body>
+</div>
+</body>
+</html>
